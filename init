@@ -1,0 +1,2 @@
+#! /bin/bash
+node core/runner/run.js init

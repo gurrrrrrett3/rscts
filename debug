@@ -1,0 +1,3 @@
+#! /bin/bash
+node core/dist/index.js start --run-build --debug
+

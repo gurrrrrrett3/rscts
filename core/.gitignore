@@ -1,0 +1,16 @@
+# Sub Rosa Files
+data
+subrosadedicated.x64
+server.srk
+config.txt
+
+# RosaServer Files
+libluajit.so
+librosaserver.so
+rosaserversatellite
+
+# compiled rscts core
+dist
+
+# node shit
+node_modules
