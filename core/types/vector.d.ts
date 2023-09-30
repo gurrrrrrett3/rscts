@@ -92,4 +92,8 @@ declare interface Vector {
    * Normalize the vector's values so that it has a length of 1.
    */
   normalize(): Vector;
+
 }
+
+declare var Vector: Vector;
+

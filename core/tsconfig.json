@@ -22,9 +22,9 @@
     "skipLibCheck": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "types": []
+    "types": ["node"]
   },
   "include": ["src"],
   "exclude": ["node_modules", "./dist/**/*", "../dist"],
-  "lib": ["ES2020"]
+  "lib": ["ES2020"],
 }

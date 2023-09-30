@@ -11,5 +11,8 @@
   "license": "ISC",
   "devDependencies": {
     "lua-types": "^2.13.1"
+  },
+  "dependencies": {
+    "typescript-to-lua": "^1.19.3"
   }
 }
