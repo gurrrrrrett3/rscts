@@ -63,7 +63,7 @@ declare interface ItemType {
   /**
    * The offset of where the item is held if it is a gun.
    */
-  gunHoldingPos: VectorObject;
+  gunHoldingPos: VectorObject
   /**
    *
    */

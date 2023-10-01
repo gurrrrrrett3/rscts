@@ -7,12 +7,12 @@ declare interface Street {
     /**
      * The first corner of a cuboid, where points inside are considered to be on the street by traffic AI.
      */
-	trafficCuboidA: Vector;
+	trafficCuboidA: VectorObject;
 
     /**
      * The second corner of a cuboid, where points inside are considered to be on the street by traffic AI.
      */
-	trafficCuboidB: Vector;
+	trafficCuboidB: VectorObject;
 
     /**
      * How many AI vehicles are currently on the street.

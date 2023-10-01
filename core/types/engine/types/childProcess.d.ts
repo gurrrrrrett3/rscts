@@ -14,7 +14,7 @@ declare interface ChildProcess {
      * Check if the child process is currently running.
 	 * @return boolean isRunning Whether the child process is running.
      */
-    isRunning() : void;
+    isRunning() : boolean;
 
     /**
      * Terminate the child process.

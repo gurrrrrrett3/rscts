@@ -1,13 +1,13 @@
 /**
  * Represents a human, including dead bodies.
  */
-declare interface Human {
+declare interface Human<D extends Data = Data> {
   readonly class: "Human";
 
   /**
    * A Lua table which persists throughout the lifespan of this object.
    */
-  data: Data;
+  data: D;
 
   stamina: number;
   maxStamina: number;
@@ -31,7 +31,7 @@ declare interface Human {
    * 5 = Laying on ground,
    * 6 = Straightened out legs.
    */
-  movementState: HumanMovementState;
+  movementState: MovementState;
 
   /**
    * 0 = Run,
@@ -39,7 +39,7 @@ declare interface Human {
    * 2 = Aim,
    * 3 = Walking while aiming.
    */
-  zoomLevel: HumanZoomLevel;
+  zoomLevel: ZoomLevel;
 
   /**
    * Level of screen blackness, 0-60.
@@ -50,7 +50,7 @@ declare interface Human {
    * Position.
    */
 
-  pos: Vector;
+  pos: VectorObject;
 
   /**
    * Radians.
@@ -173,7 +173,7 @@ declare interface Human {
   /**
    * See Player.gender.
    */
-  gender: number;
+  gender: Gender
 
   /**
    * See Player.head.
@@ -203,7 +203,7 @@ declare interface Human {
   /**
    * See Player.model.
    */
-  model: number;
+  model: Model;
 
   /**
    * See Player.suitColor.
@@ -267,9 +267,9 @@ declare interface Human {
 
   /**
    * Teleport safely to a different position.
-   * @param position Vector The position to teleport to.
+   * @param position VectorObject The position to teleport to.
    */
-  teleport(position: Vector): void;
+  teleport(position: VectorObject): void;
 
   /**
    * Speak a message.
@@ -308,15 +308,15 @@ declare interface Human {
 
   /**
 	* Set the velocity of every rigid body.
-	* @param velocity Vector The velocity to set.
+	* @param velocity The velocity to set.
    */
-  setVelocity(velocity: Vector): void;
+  setVelocity(velocity: VectorObject): void;
  
   /**
    * Add velocity to every rigid body.
-   * @param velocity Vector The velocity to add.
+   * @param velocity The velocity to add.
    */
-  addVelocity(velocity: Vector): void;
+  addVelocity(velocity: VectorObject): void;
 
   /**
    * Mount an item to an inventory slot.
@@ -337,19 +337,4 @@ declare interface Human {
 
 declare var Human: Human;
 
-enum HumanMovementState {
-  Standing,
-  MidAir,
-  Sliding,
-  Floating,
-  InsideVehicle,
-  LayingOnGround,
-  StraightenedOutLegs,
-}
 
-enum HumanZoomLevel {
-  Run,
-  Walk,
-  Aim,
-  WalkingWhileAiming,
-}

@@ -1,13 +1,13 @@
 /**
  * Represents a rigid body currently in use by the physics engine.
  */
-declare interface RigidBody {
+declare interface RigidBody<D extends Data = Data> {
     readonly class: "RigidBody";
 
     /**
      * A Lua table which persists throughout the lifespan of this object.
      */
-	data: Data;
+	data: D;
 
     /**
      * 0 = bone, 1 = car body, 2 = wheel, 3 = item.
@@ -22,12 +22,12 @@ declare interface RigidBody {
     /**
      * Position.
      */
-	pos: Vector;
+	pos: VectorObject;
 
     /**
      * Velocity.
      */
-	vel: Vector;
+	vel: VectorObject;
 
     /**
      * Rotation.
@@ -57,11 +57,11 @@ declare interface RigidBody {
     /**
      * Create a bond between this body and another at specific local coordinates.
 	 * @param otherBody RigidBody The second body in the bond.
-	 * @param thisLocalPos Vector The local position relative to this body.
-	 * @param otherLocalPos Vector The local position relative to the other body.
+	 * @param thisLocalPos VectorObject The local position relative to this body.
+	 * @param otherLocalPos VectorObject The local position relative to the other body.
 	 * @return Bond? bond The created bond, if successful.
      */
-    bondTo(otherBody: RigidBody, thisLocalPos : Vector, otherLocalPos : Vector): Bond;
+    bondTo(otherBody: RigidBody, thisLocalPos : VectorObject, otherLocalPos : VectorObject): Bond;
     
     /**
      * Link rotation between this body and another.
@@ -73,22 +73,22 @@ declare interface RigidBody {
 
     /**
      * Bond a local coordinate of this body to a static point in space.
-	 * @param localPos Vector The local position relative to this body.
-	 * @param globalPos Vector The global position in the level.
+	 * @param localPos VectorObject The local position relative to this body.
+	 * @param globalPos VectorObject The global position in the level.
 	 * @return Bond? bond The created bond, if successful.
      */
-    bondToLevel(localPos: Vector, globalPos: Vector): Bond; 
+    bondToLevel(localPos: VectorObject, globalPos: VectorObject): Bond; 
 
     /**
      * Collide with the level for one tick.
-	 * @param localPos Vector The local position relative to this body.
-	 * @param normal Vector The normal of the collision.
+	 * @param localPos VectorObject The local position relative to this body.
+	 * @param normal VectorObject The normal of the collision.
 	 * @param a number
 	 * @param b number
 	 * @param c number
 	 * @param d number
      */
-    collideLevel(localPos: Vector, normal: Vector, a: number, b: number, c: number, d: number): void;
+    collideLevel(localPos: VectorObject, normal: VectorObject, a: number, b: number, c: number, d: number): void;
 }
 
 declare var RigidBody: RigidBody;

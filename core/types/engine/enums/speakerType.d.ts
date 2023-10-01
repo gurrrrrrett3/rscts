@@ -2,25 +2,25 @@ declare enum SpeakerType {
   /**
    * Sent to all players, also used for death chat.
    */
-  Announce,
+  Announce = 0,
   /**
    * Normal player chat.
    */
-  Chat,
+  Chat = 1,
   /**
    * Item speak, like cell phones.
    */
-  Item,
+  Item = 2,
   /**
    * Eliminator blue chat.
    */
-  Eliminator,
+  Eliminator = 3,
   /**
    * Only sent to admins.
    */
-  Admin,
+  Admin = 4,
   /**
    * Red message chat.
    */
-  Message,
+  Message = 6,
 }

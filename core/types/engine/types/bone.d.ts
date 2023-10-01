@@ -6,17 +6,17 @@ declare interface Bone {
     /**
      * Position.
      */
-    pos: Vector;
+    pos: VectorObject;
 
     /**
      * Second position.
      */
-    pos2: Vector;
+    pos2: VectorObject;
 
     /**
      * Velocity.
      */
-    vel: Vector;
+    vel: VectorObject;
 
     /**
      * Rotation.

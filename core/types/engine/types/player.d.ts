@@ -3,13 +3,13 @@
  * 💾 = To network changed value to clients, the `update` method needs to be called.
  * 💲 = To network changed value to clients, the `updateFinance` method needs to be called.
  */
-declare interface Player {
+declare interface Player<D extends Data = Data> {
   readonly class: "Player";
 
   /**
-   * 🔒 A Lua table which persists throughout the lifespan of this object.
+   * A Lua table which persists throughout the lifespan of this object.
    */
-  readonly data: Data;
+  readonly data: D;
 
   /**
    * See Account.subRosaID
@@ -115,7 +115,7 @@ declare interface Player {
   /**
    *  What the input fields are used for. 0 = none, 1 = human, 2 = car, 3 = helicopter. Defaults to 0.
    */
-  inputType: number;
+  inputType: InputType;
   /**
    *  What tab in the menu they are currently in.
    */
@@ -131,7 +131,7 @@ declare interface Player {
   /**
    * 💾 0 = female, 1 = male.
    */
-  gender: number;
+  gender: Gender;
   /**
    *  💾 Starts at 0.
    */
@@ -151,7 +151,7 @@ declare interface Player {
   /**
    * 💾 0 = casual, 1 = suit.
    */
-  model: number;
+  model: Model;
   /**
    * 💾
    */
@@ -216,7 +216,7 @@ declare interface Player {
   /**
    * The location this bot will walk towards.
    */
-  botDestination?: Vector;
+  botDestination?: VectorObject;
 
   /**
    * Get a specific action.

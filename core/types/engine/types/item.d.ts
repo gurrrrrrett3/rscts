@@ -3,8 +3,8 @@
  * 💾 = To network changed value to clients, the `updateType` method needs to be called.
  */
 declare interface Item<Id extends ItemId = ItemId> {
-    readonly class: "Item";
-   /**
+  readonly class: "Item";
+  /**
    * A Lua table which persists throughout the lifespan of this object.
    */
   data: Data;
@@ -49,21 +49,22 @@ declare interface Item<Id extends ItemId = ItemId> {
    * How many bullets are inside this item.
    */
   bullets: number;
+  
   cooldown: number;
   cashSpread: number;
   cashAmount: number;
   cashPureValue: number;
-  computerCurrentLine: Id extends ItemId.Computer | ItemId.Arcade ? number : never;
+  computerCurrentLine: Id extends ItemId.Computer | ItemId.Arcade | ItemId.Memo ? number : never;
 
   /**
-   * Which line is at the top of the scre
+   * Which line is at the top of the screen
    */
-  comptuerTopLine: Id extends ItemId.Computer | ItemId.Arcade ? number : never;
+  computerTopLine: Id extends ItemId.Computer | ItemId.Arcade | ItemId.Memo ? number : never;
 
   /**
    * The location of the cursor, -1 for no cursor.
    */
-  computerCursor: Id extends ItemId.Computer | ItemId.Arcade ? number : never;
+  computerCursor: Id extends ItemId.Computer | ItemId.Arcade | ItemId.Memo ? number : never;
 
   /**
    * The index of the array in memory this is (0-1023).
@@ -103,36 +104,36 @@ declare interface Item<Id extends ItemId = ItemId> {
   /**
    * The vehicle which this item is a key for.
    */
-  vehicle: ItemId extends ItemId.Key ? Vehicle : never;
+  vehicle: Id extends ItemId.Key ? Vehicle : never;
 
   /**
    * The player who primed this grenade
    */
-  grenadePrimer: ItemId extends ItemId.Grenade ? Player : never;
+  grenadePrimer: Id extends ItemId.Grenade ? Player : never;
 
   /**
    * 💾 The phone's texture ID. 0 for white, 1 for black.
    */
-  phoneTexture: ItemId extends ItemId.CellPhone ? number : never;
+  phoneTexture: Id extends ItemId.CellPhone ? number : never;
   /**
    * The number used to call this phone.
    */
-  phoneNumber: ItemId extends ItemId.CellPhone ? number : never;
+  phoneNumber: Id extends ItemId.CellPhone ? number : never;
 
   /**
    * integer 💾 The number currently displayed on the phone.
    */
-  displayPhoneNumber: ItemId extends ItemId.CellPhone ? number : never;
+  displayPhoneNumber: Id extends ItemId.CellPhone ? number : never;
 
   /**
    * integer The number that has been entered on the phone. Will reset upon reaching 4 digits.
    */
-  enteredPhoneNumber: ItemId extends ItemId.CellPhone ? number : never;
+  enteredPhoneNumber: Id extends ItemId.CellPhone ? number : never;
 
   /**
    * Item The phone that this phone is connected to.
    */
-  connectedPhone: ItemId extends ItemId.CellPhone ? Item : never;
+  connectedPhone: Id extends ItemId.CellPhone ? Item : never;
 
   /**
    * Mount another item onto this item.
@@ -142,7 +143,7 @@ declare interface Item<Id extends ItemId = ItemId> {
    * @return boolean success Whether the mount was successful.
    */
   mountItem(childItem: Item, slot: number): boolean;
-   
+
   /**
    * Remove this item from any parent, back into the world.
    * @return boolean success Whether the unmount was successful.
@@ -168,28 +169,32 @@ declare interface Item<Id extends ItemId = ItemId> {
    * Visible if it is a Memo or a Newspaper item.
    * @param memo string The memo to set. Max 1023 characters.
    */
-  setMemo(memo: string): void;
+  setMemo: Id extends ItemId.Newspaper | ItemId.Memo ? (memo: string) => void : never;
 
   /**
    * Update the color and text of a line and network it.
    * Only works if this item is a computer.
    * @param lineIndex integer Which line to transmit.
    */
-  computerTransmitLine(lineIndex: number): void;
+  computerTransmitLine: Id extends ItemId.Computer | ItemId.Arcade | ItemId.Memo
+    ? (lineIndex: number) => void
+    : never;
 
   /**
    * Increment the current line of a computer.
    * Only works if this item is a computer.
    */
-  computerIncrementLine(): void;
- 
+  computerIncrementLine: Id extends ItemId.Computer | ItemId.Arcade | ItemId.Memo ? () => void : never;
+
   /**
    * Set the text to display on a line. Does not immediately network.
    * Only works if this item is a computer.
    * @param lineIndex integer Which line to edit.
    * @param text string The text to set the line to. Max 63 characters.
    */
-  computerSetLine(lineIndex: number, text: string): void;
+  computerSetLine: Id extends ItemId.Computer | ItemId.Arcade | ItemId.Memo
+    ? (lineIndex: number, text: string) => void
+    : never;
 
   /**
    * Set the colors to display on a line. Does not immediately network.
@@ -198,7 +203,9 @@ declare interface Item<Id extends ItemId = ItemId> {
    * @param lineIndex integer Which line to edit.
    * @param colors string The colors to set the line to, where every character represents a color value from 0x00 to 0xFF. Max 63 characters.
    */
-  computerSetLineColors(lineIndex: number, colors: number): void;
+  computerSetLineColors: Id extends ItemId.Computer | ItemId.Arcade | ItemId.Memo
+    ? (lineIndex: number, colors: number) => void
+    : never;
 
   /**
    * Set the color of a character on screen. Does not immediately network.
@@ -209,7 +216,9 @@ declare interface Item<Id extends ItemId = ItemId> {
    * @param columnIndex integer Which column to edit.
    * @param color integer The color to set, between 0x00 and 0xFF.
    */
-  comptuterSetColor(lineIndex: number, columnIndex: number, color: number): void;
+  comptuterSetColor: Id extends ItemId.Computer | ItemId.Arcade | ItemId.Memo
+    ? (lineIndex: number, columnIndex: number, color: number) => void
+    : never;
 
   /**
    * Add a bank bill to the stack of cash.
@@ -217,22 +226,23 @@ declare interface Item<Id extends ItemId = ItemId> {
    * @param position integer The relative position on the stack to add the bill, in no particular range.
    * @param value integer The denomination type of the bill (0-7).
    */
-  cashAddBill(position: VectorObject, value: number): void;
+  cashAddBill: Id extends ItemId.RoundCash | ItemId.WorldCash
+    ? (position: VectorObject, value: number) => void
+    : never;
 
   /**
-	* Remove a bank bill from the stack of cash.
-	* Only works if this item is a stack of cash.
-	* @param position integer The relative position on the stack to find the bill to remove, in no particular range.
+   * Remove a bank bill from the stack of cash.
+   * Only works if this item is a stack of cash.
+   * @param position integer The relative position on the stack to find the bill to remove, in no particular range.
    */
-  cashRemoveBill(position: VectorObject): void;
-
+  cashRemoveBill: Id extends ItemId.RoundCash | ItemId.WorldCash ? (position: VectorObject) => void : never;
 
   /**
    * Get the total value of the stack of cash.
    * Only works if this item is a stack of cash.
    * @return integer value The total value in dollars.
    */
-  cashGetBillValue(): number;
+  cashGetBillValue: Id extends ItemId.RoundCash | ItemId.WorldCash ? () => number : never;
 }
 
 declare var Item: Item;

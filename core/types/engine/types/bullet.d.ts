@@ -15,17 +15,17 @@ declare interface Bullet {
     /**
      * Where the bullet was last tick.
      */
-    lastPos: Vector;
+    lastPos: VectorObject;
 
     /**
      * Position.
      */
-    pos: Vector;
+    pos: VectorObject;
 
     /**
      * Velocity.
      */
-    vel: Vector;
+    vel: VectorObject;
 
     /**
      * Who shot this bullet.

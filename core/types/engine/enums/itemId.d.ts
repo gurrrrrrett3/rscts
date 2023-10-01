@@ -12,25 +12,20 @@ declare enum ItemId {
     UziMag = 10,
     Mm9 = 11,
     Mm9Mag = 12,
-
     Grenade = 13,
     Bandage = 14,
     Breifcase = 15,
     OpenBreifcase = 16,
-
     RoundCash = 17,
     WorldCash = 18,
-
     BlackDisk = 19,
     GreenDisk = 20,
     BlueDisk = 21,
     WhiteDisk = 22,
     GoldDisk = 23,
     RedDisk = 24,
-
     CellPhone = 25,
     WalkieTalkie = 26,
-
     Key = 27,
     Door = 28,
     Newspaper = 29,
