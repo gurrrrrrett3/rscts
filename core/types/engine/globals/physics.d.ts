@@ -1,6 +1,7 @@
 import { VectorObject } from "../types/vector";
 import { Vehicle } from "../types/vehicle";
 import { Human } from "../types/human";
+import { LineIntersectResult } from "../types/lineIntersectResult";
 /**
  * Library for using generic physics functions of the engine.
  */
@@ -12,7 +13,7 @@ declare class physics {
    * @param onlyCity boolean Whether to only include the city (not landscape, tracks, etc).
    * @return LineIntersectResult result The result of the intersection.
    */
-  lineIntersectLevel(
+  static lineIntersectLevel(
     posA: VectorObject,
     posB: VectorObject
   ): LineIntersectResult;
@@ -24,7 +25,7 @@ declare class physics {
    * @param padding number The extra padding.
    * @return LineIntersectResult result The result of the intersection.
    */
-  lineIntersectHuman(
+  static lineIntersectHuman(
     vehicle: Vehicle,
     posA: VectorObject,
     posB: VectorObject,
@@ -38,7 +39,7 @@ declare class physics {
    * @param includeWheels boolean Whether to include wheels.
    * @return LineIntersectResult result The result of the intersection.
    */
-  lineIntersectVehicle(
+  static lineIntersectVehicle(
     vehicle: Vehicle,
     posA: VectorObject,
     posB: VectorObject,
@@ -51,7 +52,7 @@ declare class physics {
    * @param onlyCity boolean Whether to only include the city (not landscape, tracks, etc).
    * @return number? fraction The fraction of the intersection.
    */
-  lineIntersectLevelQuick(
+  static lineIntersectLevelQuick(
     posA: VectorObject,
     posB: VectorObject,
     onlyCity: boolean
@@ -64,7 +65,7 @@ declare class physics {
    * @param padding number The extra padding.
    * @return number? fraction The fraction of the intersection.
    */
-  lineIntersectHumanQuick(
+  static lineIntersectHumanQuick(
     human: Human,
     posA: VectorObject,
     posB: VectorObject,
@@ -78,7 +79,7 @@ declare class physics {
    * @param includeWheels boolean Whether to include wheels.
    * @return number? fraction The fraction of the intersection.
    */
-  lineIntersectVehicleQuick(
+  static lineIntersectVehicleQuick(
     vehicle: Vehicle,
     posA: VectorObject,
     posB: VectorObject,
@@ -95,7 +96,7 @@ declare class physics {
    * @return number? fraction The fraction of the intersection.
    * @tupleReturn
    */
-  lineIntersectAnyQuick(
+  static lineIntersectAnyQuick(
     posA: VectorObject,
     posB: VectorObject,
     ignoreHuman: boolean | undefined,
@@ -115,7 +116,7 @@ declare class physics {
    * @param triC Vector The third vertex of the triangle.
    * @return number? fraction How far along the ray hit was (0.0 - 1.0). Nil if it did not hit.
    */
-  lineIntersectTriangle(
+  static lineIntersectTriangle(
     outPosition: VectorObject,
     normal: VectorObject,
     posA: VectorObject,
@@ -128,7 +129,7 @@ declare class physics {
    * Remove all bullets that have no time remaining.
    * May shift bullets in memory if any are removed.
    */
-  garbageCollectBullets();
+  static garbageCollectBullets();
   /**
    * Create a collidable block in the level.
    * @param blockX integer
@@ -136,42 +137,17 @@ declare class physics {
    * @param blockZ integer
    * @param flags integer
    */
-  createBlock(blockX: number, blockY: number, blockZ: number, flags: number);
+  static createBlock(
+    blockX: number,
+    blockY: number,
+    blockZ: number,
+    flags: number
+  );
   /**
    * Delete a collidable block in the level.
    * @param blockX integer
    * @param blockY integer
    * @param blockZ integer
    */
-  deleteBlock(blockX: number, blockY: number, blockZ: number);
-}
-declare interface LineIntersectResult {
-  /**
-   * Whether it hit. If false, all other fields will be undefined.
-   */
-  hit: boolean;
-  /**
-   * The global position where the ray hit.
-   */
-  pos?: VectorObject;
-  /**
-   * The normal of the surface the ray hit.
-   */
-  normal?: VectorObject;
-  /**
-   * How far along the ray the hit was (0.0 - 1.0).
-   */
-  fraction?: number;
-  /**
-   * Which bone the ray hit, if it was cast on a human.
-   */
-  bone?: number;
-  /**
-   * Which face the ray hit, if not a wheel, if it was cast on a vehicle.
-   */
-  face?: number;
-  /**
-   * Which wheel the ray hit, if not a face, if it was cast on a vehicle.
-   */
-  wheel?: number;
+  static deleteBlock(blockX: number, blockY: number, blockZ: number);
 }
