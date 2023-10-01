@@ -17,7 +17,7 @@ declare interface Building {
     /**
      * The rotation which this building spawns things (players in a base, cars in a car shop, etc.)
      */
-	spawnRot: RotMatrix;
+	spawnRot: RotMatrixObject;
 
     /**
      * The first corner of a cuboid, where the interior of the building is contained inside.

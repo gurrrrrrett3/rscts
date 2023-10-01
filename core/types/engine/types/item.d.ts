@@ -2,7 +2,7 @@
  * Represents an item in the world or someone's inventory.
  * 💾 = To network changed value to clients, the `updateType` method needs to be called.
  */
-declare interface Item {
+declare interface Item<Id extends ItemId = ItemId> {
     readonly class: "Item";
    /**
    * A Lua table which persists throughout the lifespan of this object.
@@ -33,17 +33,17 @@ declare interface Item {
   /**
    * Position.
    */
-  pos: Vector;
+  pos: VectorObject;
 
   /**
    * Velocity.
    */
-  vel: Vector;
+  vel: VectorObject;
 
   /**
    * Rotation.
    */
-  rot: RotMatrix;
+  rot: RotMatrixObject;
 
   /**
    * How many bullets are inside this item.
@@ -53,20 +53,20 @@ declare interface Item {
   cashSpread: number;
   cashAmount: number;
   cashPureValue: number;
-  computerCurrentLine: number;
+  computerCurrentLine: Id extends ItemId.Computer | ItemId.Arcade ? number : never;
 
   /**
    * Which line is at the top of the scre
    */
-  comptuerTopLine: number;
+  comptuerTopLine: Id extends ItemId.Computer | ItemId.Arcade ? number : never;
 
   /**
    * The location of the cursor, -1 for no cursor.
    */
-  computerCursor: number;
+  computerCursor: Id extends ItemId.Computer | ItemId.Arcade ? number : never;
 
   /**
-   * 🔒 The index of the array in memory this is (0-1023).
+   * The index of the array in memory this is (0-1023).
    */
   readonly index: number;
 
@@ -103,36 +103,36 @@ declare interface Item {
   /**
    * The vehicle which this item is a key for.
    */
-  vehicle: Vehicle;
+  vehicle: ItemId extends ItemId.Key ? Vehicle : never;
 
   /**
    * The player who primed this grenade
    */
-  grenadePrimer: Player;
+  grenadePrimer: ItemId extends ItemId.Grenade ? Player : never;
 
   /**
    * 💾 The phone's texture ID. 0 for white, 1 for black.
    */
-  phoneTexture: number;
+  phoneTexture: ItemId extends ItemId.CellPhone ? number : never;
   /**
    * The number used to call this phone.
    */
-  phoneNumber: number;
+  phoneNumber: ItemId extends ItemId.CellPhone ? number : never;
 
   /**
    * integer 💾 The number currently displayed on the phone.
    */
-  displayPhoneNumber: number;
+  displayPhoneNumber: ItemId extends ItemId.CellPhone ? number : never;
 
   /**
    * integer The number that has been entered on the phone. Will reset upon reaching 4 digits.
    */
-  enteredPhoneNumber: number;
+  enteredPhoneNumber: ItemId extends ItemId.CellPhone ? number : never;
 
   /**
    * Item The phone that this phone is connected to.
    */
-  connectedPhone: Item;
+  connectedPhone: ItemId extends ItemId.CellPhone ? Item : never;
 
   /**
    * Mount another item onto this item.
@@ -217,14 +217,14 @@ declare interface Item {
    * @param position integer The relative position on the stack to add the bill, in no particular range.
    * @param value integer The denomination type of the bill (0-7).
    */
-  cashAddBill(position: Vector, value: number): void;
+  cashAddBill(position: VectorObject, value: number): void;
 
   /**
 	* Remove a bank bill from the stack of cash.
 	* Only works if this item is a stack of cash.
 	* @param position integer The relative position on the stack to find the bill to remove, in no particular range.
    */
-  cashRemoveBill(position: Vector): void;
+  cashRemoveBill(position: VectorObject): void;
 
 
   /**

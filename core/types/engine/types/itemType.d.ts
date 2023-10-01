@@ -39,11 +39,11 @@ declare interface ItemType {
   /**
    *
    */
-  rightHandPos: Vector;
+  rightHandPos: VectorObject;
   /**
    *
    */
-  leftHandPos: Vector;
+  leftHandPos: VectorObject;
   /**
    *
    */
@@ -63,11 +63,11 @@ declare interface ItemType {
   /**
    * The offset of where the item is held if it is a gun.
    */
-  gunHoldingPos: Vector;
+  gunHoldingPos: VectorObject;
   /**
    *
    */
-  boundsCenter: Vector;
+  boundsCenter: VectorObject;
   /**
    * 🔒 The index of the array in memory this is.
    */

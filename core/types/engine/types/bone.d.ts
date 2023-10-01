@@ -21,7 +21,7 @@ declare interface Bone {
     /**
      * Rotation.
      */
-    rot: RotMatrix;
+    rot: RotMatrixObject;
 }
 
 declare var Bone: Bone;

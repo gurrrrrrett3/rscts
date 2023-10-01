@@ -7,7 +7,7 @@ declare interface Voice {
     /**
      * The volume of the voice. 0 = whisper, 1 = normal, 2 = yell.
      */
-    volumeLevel: number;
+    volumeLevel: VolumeLevel;
 
     /**
      * The current frame being sent, 0-63.
@@ -32,7 +32,7 @@ declare interface Voice {
      * @param frame The encoded Opus frame.
      * @param volumeLevel The volume of the frame. 0 = whisper, 1 = normal, 2 = yell.
      */
-    setFrame(index: number, frame: string, volumeLevel: number): void;
+    setFrame(index: number, frame: string, volumeLevel: VolumeLevel): void;
 }
 
 declare var Voice: Voice

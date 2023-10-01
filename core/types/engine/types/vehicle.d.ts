@@ -35,17 +35,17 @@ declare interface Vehicle {
     /**
      * Position.
      */
-	pos: Vector
+	pos: VectorObject
 
     /**
      * Velocity.
      */
-	vel: Vector
+	vel: VectorObject
 
     /**
      * Rotation.
      */
-	rot: RotMatrix
+	rot: RotMatrixObject
 
     /**
      * Left to right stick shift position, 0 to 2.
@@ -112,11 +112,11 @@ declare interface Vehicle {
      * Fire a network event to make a part appear to break.
      * Also used to visually toggle train doors.
 	 * @param kind integer The kind of part. 0 = window, 1 = tire, 2 = entire body, 6 = repair window.
-	 * @param position Vector The global position of the destruction.
-	 * @param normal Vector The normal of the destruction.
-	 * @return Event event The created event.
+	 * @param position The global position of the destruction.
+	 * @param normal The normal of the destruction.
+	 * @return event The created event.
      */
-    updateDestruction(kind: number, partIndex: number, position: Vector, normal : Vector): Event;
+    updateDestruction(kind: number, partIndex: number, position: VectorObject, normal : VectorObject): Event;
     
     /**
      * Remove self safely and fire a network event.
@@ -125,8 +125,8 @@ declare interface Vehicle {
 
     /**
      * Get whether a specific window is broken.
-	 * @param index integer The index between 0 and 7.
-	 * @return boolean isWindowBroken
+	 * @param index The index between 0 and 7.
+	 * @return isWindowBroken
      */
     getIsWindowBroken(index: number): boolean;
 

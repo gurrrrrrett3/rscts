@@ -32,12 +32,12 @@ declare interface RigidBody {
     /**
      * Rotation.
      */
-	rot: RotMatrix;
+	rot: RotMatrixObject;
 
     /**
      * Rotational velocity.
      */
-	rotVel: RotMatrix;
+	rotVel: RotMatrixObject;
 
     /**
      * 🔒 The index of the array in memory this is (0-8191).

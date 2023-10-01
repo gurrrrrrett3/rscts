@@ -3,12 +3,12 @@
   "tstl": {
     "luaTarget": "JIT",
     "sourceMapTraceback": true,
-    "luaLibImport": "inline",
+    "luaLibImport": "require",
     "noImplicitSelf": true
   },
   "compilerOptions": {
     "outDir": "dist",
-    "types": ["lua-types/jit", "./core/types"],
+    "types": ["lua-types/jit", "./core/types/index.d.ts"],
   },
 
 }

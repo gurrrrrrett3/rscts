@@ -141,7 +141,7 @@ http = {}
 ---@class HTTPResponse
 ---@field status integer The HTTP status code.
 ---@field body string The response body.
----@field headers table<string, string> The response headers.
+---@field headers table<string, string> 
 
 ---Send an HTTP(S) GET request synchronously.
 ---Available in worker threads.

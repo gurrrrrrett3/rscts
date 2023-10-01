@@ -2,8 +2,8 @@
  * Represents a 3D point in the level.
  * Available in worker threads.
  */
-declare interface Vector {
-  readonly class: "Vector";
+declare interface VectorObject {
+  class: "Vector";
 
   /**
    * X coordinate.
@@ -24,32 +24,32 @@ declare interface Vector {
    * Add other to self.
    * @param other Vector to add.
    */
-  add(other: Vector): Vector;
+  add(other: VectorObject): VectorObject;
 
   /**
    * Multiply self by scalar.
    * @param scalar Scalar to multiply by.
    */
-  mul(scalar: number): Vector;
+  mult(scalar: number): VectorObject;
 
   /**
    * Replace values with those in another vector.
    * @param other Vector to inherit values from.
    */
-  set(other: Vector): Vector;
+  set(other: VectorObject): VectorObject;
 
   /**
    * Create a copy of self.
    * @returns The created copy.
    */
-  clone(): Vector;
+  clone(): VectorObject;
 
   /**
    * Get the distance between self and other.
    * @param other Vector to get distance to.
    * @returns The distance between self and other.
    */
-  dist(other: Vector): number;
+  dist(other: VectorObject): number;
 
   /**
    * Calculate the distance between self and other, squared.
@@ -57,7 +57,7 @@ declare interface Vector {
    * @param other Vector to get distance to.
    * @returns The distance between self and other, squared.
    */
-  distSquare(other: Vector): number;
+  distSquare(other: VectorObject): number;
 
   /**
    * Calculate the length of the vector.
@@ -77,7 +77,7 @@ declare interface Vector {
    * @param other Vector to calculate dot product with.
    * @returns The dot product of self and other.
    */
-  dot(other: Vector): number;
+  dot(other: VectorObject): number;
 
   /**
    * Get the coordinates of the level block the vector is in.
@@ -91,9 +91,12 @@ declare interface Vector {
   /**
    * Normalize the vector's values so that it has a length of 1.
    */
-  normalize(): Vector;
-
+  normalize(): VectorObject;
 }
 
-declare var Vector: Vector;
-
+/**
+ * Represents a 3D point in the level.
+ * Available in worker threads.
+ */
+declare function Vector(x: number, y: number, z: number): VectorObject;
+declare function Vector(): VectorObject;
