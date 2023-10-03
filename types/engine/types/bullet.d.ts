@@ -5,7 +5,7 @@
 declare interface Bullet {
     readonly class: "Bullet";
 
-    type: number;
+    type: BulletType;
 
     /**
      * How many ticks this bullet has left until it despawns.

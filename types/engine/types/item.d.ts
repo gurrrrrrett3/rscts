@@ -18,7 +18,7 @@ declare interface Item<Id extends ItemId = ItemId> {
   /**
    * The slot this item occupies if it has a parent.
    */
-  parentSlot: number;
+  parentSlot: InventorySlot;
 
   /**
    * The human this item is mounted to, if any.

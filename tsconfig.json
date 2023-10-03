@@ -8,7 +8,10 @@
   },
   "compilerOptions": {
     "outDir": "dist",
-    "types": ["lua-types/jit", "./core/types/index.d.ts"],
+    "types": ["lua-types/jit", "./types/index.d.ts"],
   },
+  "exclude": [
+    "core/src"
+  ]
 
 }

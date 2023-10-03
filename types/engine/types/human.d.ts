@@ -223,7 +223,7 @@ declare interface Human<D extends Data = Data> {
   /**
    * 0 = white, 1 = yellow, 2 = red. Change to a different value (ex. -1) to re-network appearance fields (model, gender, etc.)
    */
-  lastUpdatedWantedGroup: number;
+  lastUpdatedWantedGroup: WantedGroup;
 
   /**
    * 🔒 The index of the array in memory this is (0-255).
