@@ -390,7 +390,7 @@ function itemTypes.getCount() end
 function itemTypes.getByName(name) end
 
 ---Library for managing Item objects.
----items[index: integer] -> Item
+---items[ind1ex: integer] -> Item
 items = {}
 
 ---Get all items.
