@@ -8,7 +8,7 @@ declare interface VehicleType {
      /**
       * 0 = cannot be controlled, 1 = car, 2 = helicopter.
       */
-     controllableState: number;
+     controllableState: ControllableState;
 
      /**
       * 🔒 The index of the array in memory this is.

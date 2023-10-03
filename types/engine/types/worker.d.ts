@@ -1,8 +1,10 @@
 /**
  * Represents a worker thread.
  */
-/*declare interface Worker {
+declare interface LuaWorker {
     readonly class: "Worker";
+
 }
 
-declare var Worker: Worker;*/
+declare function LuaWorker(): LuaWorker;
+

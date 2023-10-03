@@ -12,7 +12,7 @@ declare interface RigidBody<D extends Data = Data> {
     /**
      * 0 = bone, 1 = car body, 2 = wheel, 3 = item.
      */
-	type: number;
+	type: RigidBodyType;
 
     /**
      * In kilograms, kind of.

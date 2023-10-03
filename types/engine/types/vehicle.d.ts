@@ -10,7 +10,7 @@ declare interface Vehicle {
     data: Data
 
     /**
-     *  0 = cannot be controlled, 1 = car, 2 = helicopter.
+     *  
      */
 	type: VehicleType
 
@@ -22,15 +22,15 @@ declare interface Vehicle {
     /**
      *  0 = cannot be controlled, 1 = car, 2 = helicopter.
      */
-	controllableState: number
+	controllableState: ControllableState
     /**
      * 0-100
      */
 	health: number
     /**
-     * 💾 0 = black, 1 = red, 2 = blue, 3 = silver, 4 = white, 5 = gold.
+     * 💾
      */
-	color: number
+	color: VehicleColor
 
     /**
      * Position.
@@ -111,12 +111,12 @@ declare interface Vehicle {
     /**
      * Fire a network event to make a part appear to break.
      * Also used to visually toggle train doors.
-	 * @param kind integer The kind of part. 0 = window, 1 = tire, 2 = entire body, 6 = repair window.
+	 * @param kind The kind of part. 
 	 * @param position The global position of the destruction.
 	 * @param normal The normal of the destruction.
 	 * @return event The created event.
      */
-    updateDestruction(kind: number, partIndex: number, position: VectorObject, normal : VectorObject): Event;
+    updateDestruction(kind: VehiclePart, position: VectorObject, normal : VectorObject): Event;
     
     /**
      * Remove self safely and fire a network event.

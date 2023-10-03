@@ -1,14 +1,14 @@
 /**
  * Represents a child process.
  */
-declare interface ChildProcess {
+declare interface LuaChildProcess {
 
     /**
      * Create a new ChildProcess.
 	 * @param fileName string The path to a lua file to execute in the child process.
 	 * @return ChildProcess childProcess The created ChildProcess.
      */
-    new(fileName: string) : ChildProcess;
+    new(fileName: string) : LuaChildProcess;
 
     /**
      * Check if the child process is currently running.
@@ -77,4 +77,4 @@ declare interface ChildProcess {
 
 }
 
-declare var ChildProcess: ChildProcess;
+declare var ChildProcess: LuaChildProcess;

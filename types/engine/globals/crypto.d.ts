@@ -4,7 +4,7 @@
 /**
  * Library for crpytographic functions.
  */
-declare module "crypto" {
+declare module LuaCrypto {
   let exports: {
     /**
      * Get the MD5 hash of a string of bytes.
