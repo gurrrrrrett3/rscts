@@ -1,8 +1,12 @@
 declare enum SpeakerType {
   /**
-   * Sent to all players, also used for death chat.
+   * Sent to all players. SpeakerIndex needs to be -1.
    */
   Announce = 0,
+  /**
+   * Used when players are dead in round mode.
+   */
+  DeadChat = 0,
   /**
    * Normal player chat.
    */

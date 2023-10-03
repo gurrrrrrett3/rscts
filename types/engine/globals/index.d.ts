@@ -152,3 +152,29 @@ declare const FILE_WATCH_Q_OVERFLOW = 0;
  * Backing fs was unmounted.
  */
 declare const FILE_WATCH_UNMOUNT = 0;
+
+/**
+ * Send a message to the main thread.
+ * Only available in worker threads.
+ * Adds to a queue such that when receiveMessage is called on the worker object in the main thread, this message can be returned.
+ * @param message The message to send.
+ * @see LuaWorker#receiveMessage
+ */
+declare function sendMessage(message: any): void;
+
+/**
+ * Receive a message from the main thread.
+ * Only available in worker threads.
+ * @returns The message sent by sendMessage.
+ * @see LuaWorker#sendMessage
+ */
+declare function receiveMessage(): any;
+
+/**
+ * Suspend this thread for a number of milliseconds.
+ * Only available in worker threads.
+ * @param ms The number of milliseconds to sleep for.
+ * @return  Whether the main thread has destroyed the Worker object responsible for this thread while it was sleeping. If true, execution of this thread has to finish.
+ */
+declare function sleep(ms: number): boolean;
+
