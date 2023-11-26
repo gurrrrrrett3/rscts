@@ -3,18 +3,18 @@
   "tstl": {
     "luaTarget": "JIT",
     "sourceMapTraceback": true,
-    "luaLibImport": "require",
-    "noImplicitSelf": true
+    "luaLibImport": "inline",
+    "noImplicitSelf": true,
   },
   "compilerOptions": {
-    "outDir": "./core/compiled",
-    "types": ["lua-types/jit"]
+    "outDir": "./compiled",
+    "types": ["lua-types/jit"],
   },
   "exclude": [
-    "./core"
+    "../core"
   ],
   "include": [
-    "types/**/*.d.ts",
-    "src/**/*.ts"
+    "../types/**/*.d.ts",
+    "../src/**/*.ts"
   ]
 }

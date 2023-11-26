@@ -3,14 +3,21 @@ data
 subrosadedicated.x64
 server.srk
 config.txt
+serverlog.txt
+stats.txt
 
 # RosaServer Files
+config.yml
 libluajit.so
 librosaserver.so
 rosaserversatellite
+rs_crash_report.txt
 
 # compiled rscts core
 dist
+
+# compiled plugins and modes
+compiled/
 
 # node shit
 node_modules

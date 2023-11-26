@@ -28,7 +28,7 @@ declare class hook extends rs_hook {
    * Add a generic named hook.
    */
   static add<T extends keyof Hooks>(eventName: T, name: string, func: Hooks[T]): void;
-  static add(eventName: string, name: string, func: (...args: any[]) => HookFunctionReturn): void;
+  static add(eventName: string, name: string, func: (this: void, ...args: any[]) => HookFunctionReturn): void;
 }
 
 declare enum HookReturn {
@@ -38,24 +38,24 @@ declare enum HookReturn {
 
 type HookFunctionReturn = void | HookReturn;
 
-interface Hooks {
-  AccountDeathTax: (account: Account) => HookFunctionReturn;
-  AccountTicketBegin: (identifier: number, ticket: number) => HookFunctionReturn;
-  AccountTicketFound: (account?: Account) => HookFunctionReturn;
-  AccountsSave: () => HookFunctionReturn;
-  AreaCreateBlock: (blockX: number, blockY: number, blockZ: number, flags: number) => HookFunctionReturn;
-  AreaDeleteBlock: (blockX: number, blockY: number, blockZ: number) => HookFunctionReturn;
-  BulletCreate: (
-    type: number,
+declare interface Hooks {
+  AccountDeathTax: (this: void, account: Account) => HookFunctionReturn;
+  AccountTicketBegin: (this: void, identifier: number, ticket: number) => HookFunctionReturn;
+  AccountTicketFound: (this: void, account?: Account) => HookFunctionReturn;
+  AccountsSave: (this: void) => HookFunctionReturn;
+  AreaCreateBlock: (this: void, blockX: number, blockY: number, blockZ: number, flags: number) => HookFunctionReturn;
+  AreaDeleteBlock: (this: void, blockX: number, blockY: number, blockZ: number) => HookFunctionReturn;
+  BulletCreate: (this: void,
+    type: BulletType,
     position: VectorObject,
     velocity: VectorObject,
     player: Player
   ) => HookFunctionReturn;
-  BulletHitHuman: (human: Human, bullet: Bullet) => HookFunctionReturn;
-  BulletMayHit: (bullet: Bullet) => HookFunctionReturn;
-  BulletMayHitHuman: (bullet: Bullet) => HookFunctionReturn;
-  CalculateEarShots: (connection: Connection, player: Player) => HookFunctionReturn;
-  CollideBodies: (
+  BulletHitHuman: (this: void, human: Human, bullet: Bullet) => HookFunctionReturn;
+  BulletMayHit: (this: void, bullet: Bullet) => HookFunctionReturn;
+  BulletMayHitHuman: (this: void, bullet: Bullet) => HookFunctionReturn;
+  CalculateEarShots: (this: void, connection: Connection, player: Player) => HookFunctionReturn;
+  CollideBodies: (this: void,
     aBody: RigidBody,
     bBody: RigidBody,
     aLocalPos: VectorObject,
@@ -66,45 +66,45 @@ interface Hooks {
     c: number,
     d: number
   ) => HookFunctionReturn;
-  ConsoleAutoComplete: (data: { response: string }) => HookFunctionReturn;
-  ConsoleInput: (input: string) => HookFunctionReturn;
-  CreateTraffic: (amount: number) => HookFunctionReturn;
-  EconomyCarMarket: () => HookFunctionReturn;
-  EventBullet: (
-    type: number,
+  ConsoleAutoComplete: (this: void, data: { response: string }) => HookFunctionReturn;
+  ConsoleInput: (this: void, input: string) => HookFunctionReturn;
+  CreateTraffic: (this: void, amount: number) => HookFunctionReturn;
+  EconomyCarMarket: (this: void) => HookFunctionReturn;
+  EventBullet: (this: void,
+    type: BulletType,
     position: VectorObject,
     velocity: VectorObject,
     item: Item
   ) => HookFunctionReturn;
-  EventBulletHit: (hitType: number, position: VectorObject, normal: VectorObject) => HookFunctionReturn;
-  EventMessage: (
+  EventBulletHit: (this: void, hitType: BulletHitType, position: VectorObject, normal: VectorObject) => HookFunctionReturn;
+  EventMessage: (this: void,
     speakerType: SpeakerType,
     message: string,
     speakerId: number,
     volume: VolumeLevel
   ) => HookFunctionReturn;
-  EventSound: (
-    soundType: number,
+  EventSound: (this: void,
+    soundType: Sound,
     position: VectorObject,
     volume: number,
     pitch: number
   ) => HookFunctionReturn;
-  EventUpdateItemInfo: (item: Item) => HookFunctionReturn;
-  EventPlayerUpdateFinance: (player: Player) => HookFunctionReturn;
-  EventUpdatePlayer: (player: Player) => HookFunctionReturn;
-  EventUpdateVehicle: (
+  EventUpdateItemInfo: (this: void, item: Item) => HookFunctionReturn;
+  EventPlayerUpdateFinance: (this: void, player: Player) => HookFunctionReturn;
+  EventUpdatePlayer: (this: void, player: Player) => HookFunctionReturn;
+  EventUpdateVehicle: (this: void,
     vehicle: Vehicle,
     updateType: number,
     partId: number,
     position: VectorObject,
     normal: VectorObject
   ) => HookFunctionReturn;
-  GrenadeExplode: (grenade: Item<ItemId.Grenade>) => HookFunctionReturn;
-  HumanCollisionVehicle: (human: Human, vehicle: Vehicle) => HookFunctionReturn;
-  HumanCreate: (position: VectorObject, rotation: RotMatrixObject, player: Player) => HookFunctionReturn;
-  HumanDamage: (human: Human, bone: number, damage: number) => HookFunctionReturn;
-  HumanDelete: (human: Human) => HookFunctionReturn;
-  HumanLimbInverseKinematics: (
+  GrenadeExplode: (this: void, grenade: Item<ItemId.Grenade>) => HookFunctionReturn;
+  HumanCollisionVehicle: (this: void, human: Human, vehicle: Vehicle) => HookFunctionReturn;
+  HumanCreate: (this: void, position: VectorObject, rotation: RotMatrixObject, player: Player) => HookFunctionReturn;
+  HumanDamage: (this: void, human: Human, bone: number, damage: number) => HookFunctionReturn;
+  HumanDelete: (this: void, human: Human) => HookFunctionReturn;
+  HumanLimbInverseKinematics: (this: void,
     human: Human,
     trunkBoneId: number,
     branchBoneId: number,
@@ -118,135 +118,135 @@ interface Hooks {
     _vecC: VectorObject,
     flags: number
   ) => HookFunctionReturn;
-  InterruptSignal: () => HookFunctionReturn;
-  ItemComputerInput: (
+  InterruptSignal: (this: void) => HookFunctionReturn;
+  ItemComputerInput: (this: void,
     computer: Item<ItemId.Computer | ItemId.Arcade>,
     character: number
   ) => HookFunctionReturn;
-  ItemCreate: (type: ItemType, position: VectorObject, rotation: RotMatrixObject) => HookFunctionReturn;
-  ItemDelete: (item: Item) => HookFunctionReturn;
-  ItemLink: (item: Item, childItem?: Item, parentHuman?: Human, slot?: number) => HookFunctionReturn;
-  LineIntersectHuman: (human: Human, posA: VectorObject, posB: VectorObject) => HookFunctionReturn;
-  LogicCoop: () => HookFunctionReturn;
-  LogicRace: () => HookFunctionReturn;
-  LogicRound: () => HookFunctionReturn;
-  LogicTerminator: () => HookFunctionReturn;
-  LogicVersus: () => HookFunctionReturn;
-  LogicWorld: () => HookFunctionReturn;
-  Logic: () => HookFunctionReturn;
-  PacketBuilding: (connection: Connection) => HookFunctionReturn;
-  PhysicsBullets: () => HookFunctionReturn;
-  Physics: () => HookFunctionReturn;
-  PhysicsRigidBodies: () => HookFunctionReturn;
-  PlayerAI: (bot: Player) => HookFunctionReturn;
-  PlayerActions: (player: Player) => HookFunctionReturn;
-  PlayerChat: (player: Player, message: string) => HookFunctionReturn;
-  PlayerCreate: () => HookFunctionReturn;
-  PlayerDeathTax: (player: Player) => HookFunctionReturn;
-  PlayerDelete: (player: Player) => HookFunctionReturn;
-  PlayerGiveWantedLevel: (player: Player, victim: Player, basePoints: number) => HookFunctionReturn;
-  PostAccountDeathTax: (account: Account) => HookFunctionReturn;
-  PostAccountTicket: (account?: Account) => HookFunctionReturn;
-  PostAccountsSave: () => HookFunctionReturn;
-  PostAreaCreateBlock: (blockX: number, blockY: number, blockZ: number, flags: number) => HookFunctionReturn;
-  PostAreaDeleteBlock: (blockX: number, blockY: number, blockZ: number) => HookFunctionReturn;
-  PostBulletCreate: (bullet: Bullet) => HookFunctionReturn;
-  PostCalculateEarShots: (connection: Connection, player: Player) => HookFunctionReturn;
-  PostEcononmyCarMarket: () => HookFunctionReturn;
-  PostEventBullet: (
-    type: number,
+  ItemCreate: (this: void, type: ItemType, position: VectorObject, rotation: RotMatrixObject) => HookFunctionReturn;
+  ItemDelete: (this: void, item: Item) => HookFunctionReturn;
+  ItemLink: (this: void, item: Item, childItem?: Item, parentHuman?: Human, slot?: number) => HookFunctionReturn;
+  LineIntersectHuman: (this: void, human: Human, posA: VectorObject, posB: VectorObject) => HookFunctionReturn;
+  LogicCoop: (this: void) => HookFunctionReturn;
+  LogicRace: (this: void) => HookFunctionReturn;
+  LogicRound: (this: void) => HookFunctionReturn;
+  LogicTerminator: (this: void) => HookFunctionReturn;
+  LogicVersus: (this: void) => HookFunctionReturn;
+  LogicWorld: (this: void) => HookFunctionReturn;
+  Logic: (this: void) => HookFunctionReturn;
+  PacketBuilding: (this: void, connection: Connection) => HookFunctionReturn;
+  PhysicsBullets: (this: void) => HookFunctionReturn;
+  Physics: (this: void) => HookFunctionReturn;
+  PhysicsRigidBodies: (this: void) => HookFunctionReturn;
+  PlayerAI: (this: void, bot: Player) => HookFunctionReturn;
+  PlayerActions: (this: void, player: Player) => HookFunctionReturn;
+  PlayerChat: (this: void, player: Player, message: string) => HookFunctionReturn;
+  PlayerCreate: (this: void) => HookFunctionReturn;
+  PlayerDeathTax: (this: void, player: Player) => HookFunctionReturn;
+  PlayerDelete: (this: void, player: Player) => HookFunctionReturn;
+  PlayerGiveWantedLevel: (this: void, player: Player, victim: Player, basePoints: number) => HookFunctionReturn;
+  PostAccountDeathTax: (this: void, account: Account) => HookFunctionReturn;
+  PostAccountTicket: (this: void, account?: Account) => HookFunctionReturn;
+  PostAccountsSave: (this: void) => HookFunctionReturn;
+  PostAreaCreateBlock: (this: void, blockX: number, blockY: number, blockZ: number, flags: number) => HookFunctionReturn;
+  PostAreaDeleteBlock: (this: void, blockX: number, blockY: number, blockZ: number) => HookFunctionReturn;
+  PostBulletCreate: (this: void, bullet: Bullet) => HookFunctionReturn;
+  PostCalculateEarShots: (this: void, connection: Connection, player: Player) => HookFunctionReturn;
+  PostEcononmyCarMarket: (this: void) => HookFunctionReturn;
+  PostEventBullet: (this: void,
+    type: BulletType,
     position: VectorObject,
     velocity: VectorObject,
     item: Item
   ) => HookFunctionReturn;
-  PostEventBulletHit: (hitType: number, position: VectorObject, normal: VectorObject) => HookFunctionReturn;
-  PostEventMessage: (
+  PostEventBulletHit: (this: void, hitType: BulletHitType, position: VectorObject, normal: VectorObject) => HookFunctionReturn;
+  PostEventMessage: (this: void,
     speakerType: SpeakerType,
     message: string,
     speakerId: number,
     volume: VolumeLevel
   ) => HookFunctionReturn;
-  PostEventSound: (
-    soundType: number,
+  PostEventSound: (this: void,
+    soundType: Sound,
     position: VectorObject,
     volume: number,
     pitch: number
   ) => HookFunctionReturn;
-  PostEventUpdateItemInfo: (item: Item) => HookFunctionReturn;
-  PostEventUpdatePlayerFinance: (player: Player) => HookFunctionReturn;
-  PostEventUpdatePlayer: (player: Player) => HookFunctionReturn;
-  PostEventUpdateVehicle: (
+  PostEventUpdateItemInfo: (this: void, item: Item) => HookFunctionReturn;
+  PostEventUpdatePlayerFinance: (this: void, player: Player) => HookFunctionReturn;
+  PostEventUpdatePlayer: (this: void, player: Player) => HookFunctionReturn;
+  PostEventUpdateVehicle: (this: void,
     vehicle: Vehicle,
     updateType: number,
     partId: number,
     position: VectorObject,
     normal: VectorObject
   ) => HookFunctionReturn;
-  PostGrenadeExplode: (grenade: Item<ItemId.Grenade>) => HookFunctionReturn;
-  PostHumanCollisionVehicle: (human: Human, vehicle: Vehicle) => HookFunctionReturn;
-  PostHumanCreate: (human: Human) => HookFunctionReturn;
-  PostHumanDamage: (human: Human, bone: number, damage: number) => HookFunctionReturn;
-  PostHumanDelete: (human: Human) => HookFunctionReturn;
-  PostItemComputerInput: (
+  PostGrenadeExplode: (this: void, grenade: Item<ItemId.Grenade>) => HookFunctionReturn;
+  PostHumanCollisionVehicle: (this: void, human: Human, vehicle: Vehicle) => HookFunctionReturn;
+  PostHumanCreate: (this: void, human: Human) => HookFunctionReturn;
+  PostHumanDamage: (this: void, human: Human, bone: number, damage: number) => HookFunctionReturn;
+  PostHumanDelete: (this: void, human: Human) => HookFunctionReturn;
+  PostItemComputerInput: (this: void,
     computer: Item<ItemId.Computer | ItemId.Arcade>,
     character: number
   ) => HookFunctionReturn;
-  PostItemCreate: (item: Item) => HookFunctionReturn;
-  PostItemDelete: (item: Item) => HookFunctionReturn;
-  PostItemLink: (item: Item, childItem?: Item, parentHuman?: Human, slot?: number) => HookFunctionReturn;
-  PostLevelCreate: () => HookFunctionReturn;
-  PostLogicCoop: () => HookFunctionReturn;
-  PostLogicRace: () => HookFunctionReturn;
-  PostLogicRound: () => HookFunctionReturn;
-  PostLogicTerminator: () => HookFunctionReturn;
-  PostLogicVersus: () => HookFunctionReturn;
-  PostLogicWorld: () => HookFunctionReturn;
-  PostLogic: () => HookFunctionReturn;
-  PostPhysicsBullets: () => HookFunctionReturn;
-  PostPhysics: () => HookFunctionReturn;
-  PostPhysicsRigidBodies: () => HookFunctionReturn;
-  PostPlayerAI: (bot: Player) => HookFunctionReturn;
-  PostPlayerActions: (player: Player) => HookFunctionReturn;
-  PostPlayerCreate: (player: Player) => HookFunctionReturn;
-  PostPlayerDeathTax: (player: Player) => HookFunctionReturn;
-  PostPlayerDelete: (player: Player) => HookFunctionReturn;
-  PostPlayerGiveWantedLevel: (player: Player, victim: Player, basePoints: number) => HookFunctionReturn;
-  PostResetGame: () => HookFunctionReturn;
-  PostSendConnectResponse: (address: string, port: number, data: { message: string }) => HookFunctionReturn;
-  PostSendPacket: (
+  PostItemCreate: (this: void, item: Item) => HookFunctionReturn;
+  PostItemDelete: (this: void, item: Item) => HookFunctionReturn;
+  PostItemLink: (this: void, item: Item, childItem?: Item, parentHuman?: Human, slot?: number) => HookFunctionReturn;
+  PostLevelCreate: (this: void) => HookFunctionReturn;
+  PostLogicCoop: (this: void) => HookFunctionReturn;
+  PostLogicRace: (this: void) => HookFunctionReturn;
+  PostLogicRound: (this: void) => HookFunctionReturn;
+  PostLogicTerminator: (this: void) => HookFunctionReturn;
+  PostLogicVersus: (this: void) => HookFunctionReturn;
+  PostLogicWorld: (this: void) => HookFunctionReturn;
+  PostLogic: (this: void) => HookFunctionReturn;
+  PostPhysicsBullets: (this: void) => HookFunctionReturn;
+  PostPhysics: (this: void) => HookFunctionReturn;
+  PostPhysicsRigidBodies: (this: void) => HookFunctionReturn;
+  PostPlayerAI: (this: void, bot: Player) => HookFunctionReturn;
+  PostPlayerActions: (this: void, player: Player) => HookFunctionReturn;
+  PostPlayerCreate: (this: void, player: Player) => HookFunctionReturn;
+  PostPlayerDeathTax: (this: void, player: Player) => HookFunctionReturn;
+  PostPlayerDelete: (this: void, player: Player) => HookFunctionReturn;
+  PostPlayerGiveWantedLevel: (this: void, player: Player, victim: Player, basePoints: number) => HookFunctionReturn;
+  PostResetGame: (this: void) => HookFunctionReturn;
+  PostSendConnectResponse: (this: void, address: string, port: number, data: { message: string }) => HookFunctionReturn;
+  PostSendPacket: (this: void,
     address: string,
     port: number,
     packetType: number,
     packetSize: number
   ) => HookFunctionReturn;
-  PostServerRecieve: () => HookFunctionReturn;
-  PostServerSend: () => HookFunctionReturn;
-  PostTrafficCarAI: () => HookFunctionReturn;
-  PostTrafficCarDestination: () => HookFunctionReturn;
-  PostTrafficSimulation: () => HookFunctionReturn;
-  PostVehicleCreate: (vehicle: Vehicle) => HookFunctionReturn;
-  PostVehicleDamage: (vehicle: Vehicle, damage: number) => HookFunctionReturn;
-  PostVehicleDelete: (vehicle: Vehicle) => HookFunctionReturn;
-  ResetGame: (reason: number) => HookFunctionReturn;
-  SendConnectResponse: (address: string, port: number, data: { message: string }) => HookFunctionReturn;
-  SendPacket: (address: string, port: number, packetType: number, packetSize: number) => HookFunctionReturn;
-  ServerRecieve: () => HookFunctionReturn;
-  ServerSend: () => HookFunctionReturn;
-  TrafficCarAI: (trafficCar: TrafficCar) => HookFunctionReturn;
-  TrafficCarDestination: (
+  PostServerRecieve: (this: void) => HookFunctionReturn;
+  PostServerSend: (this: void) => HookFunctionReturn;
+  PostTrafficCarAI: (this: void) => HookFunctionReturn;
+  PostTrafficCarDestination: (this: void) => HookFunctionReturn;
+  PostTrafficSimulation: (this: void) => HookFunctionReturn;
+  PostVehicleCreate: (this: void, vehicle: Vehicle) => HookFunctionReturn;
+  PostVehicleDamage: (this: void, vehicle: Vehicle, damage: number) => HookFunctionReturn;
+  PostVehicleDelete: (this: void, vehicle: Vehicle) => HookFunctionReturn;
+  ResetGame: (this: void, reason: number) => HookFunctionReturn;
+  SendConnectResponse: (this: void, address: string, port: number, data: { message: string }) => HookFunctionReturn;
+  SendPacket: (this: void, address: string, port: number, packetType: number, packetSize: number) => HookFunctionReturn;
+  ServerRecieve: (this: void) => HookFunctionReturn;
+  ServerSend: (this: void) => HookFunctionReturn;
+  TrafficCarAI: (this: void, trafficCar: TrafficCar) => HookFunctionReturn;
+  TrafficCarDestination: (this: void,
     trafficCar: TrafficCar,
     a: number,
     b: number,
     c: number,
     d: number
   ) => HookFunctionReturn;
-  TrafficSimulation: () => HookFunctionReturn;
-  VehicleCreate: (
+  TrafficSimulation: (this: void) => HookFunctionReturn;
+  VehicleCreate: (this: void,
     type: VehicleType,
     position: VectorObject,
     rotation: RotMatrixObject,
     color: number
   ) => HookFunctionReturn;
-  VehicleDamage: (vehicle: Vehicle, damage: number) => HookFunctionReturn;
-  VehicleDelete: (vehicle: Vehicle) => HookFunctionReturn;
+  VehicleDamage: (this: void, vehicle: Vehicle, damage: number) => HookFunctionReturn;
+  VehicleDelete: (this: void, vehicle: Vehicle) => HookFunctionReturn;
 }
